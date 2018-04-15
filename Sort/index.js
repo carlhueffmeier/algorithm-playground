@@ -1,5 +1,5 @@
-function swap(a, b) {
-  [a, b] = [b, a];
+function swap(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
 }
 
 function bubbleSort(arr) {
@@ -33,7 +33,6 @@ function insertionSwapSort(arr) {
 }
 
 function mergeSort(arr) {
-  debugger;
   // base case
   if (arr.length <= 1) return arr;
   // if arr has more than one element
@@ -55,9 +54,30 @@ function mergeSort(arr) {
   return [...result, ...left, ...right];
 }
 
+function quickSort(arr, start = 0, end = arr.length) {
+  if (end - start <= 1) return;
+  // partition into <smaller> [pivot] <bigger>
+  // thereby moving pivot into its final spot
+  var pivotIndex = end - 1;
+  for (let i = start; i < pivotIndex; i++) {
+    if (arr[i] > arr[pivotIndex]) {
+      // move element next to our pivot
+      swap(arr, i, pivotIndex - 1);
+      // swap pivot with its bigger neighbor
+      swap(arr, pivotIndex - 1, pivotIndex);
+      pivotIndex--;
+      i--;
+    }
+  }
+  // sort SMALLER and BIGGER partitions
+  quickSort(arr, start, pivotIndex);
+  quickSort(arr, pivotIndex + 1, end);
+}
+
 module.exports = {
   bubbleSort,
   insertionSort,
   insertionSwapSort,
-  mergeSort
+  mergeSort,
+  quickSort
 };

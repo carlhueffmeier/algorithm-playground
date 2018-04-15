@@ -3,7 +3,8 @@ const {
   insertionSort,
   insertionSwap,
   insertionSwapSort,
-  mergeSort
+  mergeSort,
+  quickSort
 } = require('./index.js');
 
 test('bubbleSort works', () => {
@@ -35,11 +36,21 @@ test('insertionSwapSort works', () => {
   expect(result).toEqual(source);
 });
 
-test('insertionSort works', () => {
-  var source = Array.from({ length: 10 }, () =>
+test('mergeSort works', () => {
+  var source = Array.from({ length: 1000 }, () =>
     Math.round(Math.random() * 1000)
   );
   var result = mergeSort(source);
+  source.sort((a, b) => a - b);
+  expect(result).toEqual(source);
+});
+
+test('quickSort works', () => {
+  var source = Array.from({ length: 1000 }, () =>
+    Math.round(Math.random() * 1000)
+  );
+  var result = source.slice();
+  quickSort(result);
   source.sort((a, b) => a - b);
   expect(result).toEqual(source);
 });
